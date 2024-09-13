@@ -47,7 +47,7 @@ public class RocketCtrl : MonoBehaviour
     {
         if (GetComponent<Rigidbody2D>())
         {
-            Vector2 speed = GetComponent<Rigidbody2D>().velocity; //Èû°ú ¹æÇâ
+            Vector2 speed = GetComponent<Rigidbody2D>().velocity; //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
             speed.x = 4 * h;
             speed.y = 4 * v;
             GetComponent<Rigidbody2D>().velocity = speed;
@@ -68,13 +68,25 @@ public class RocketCtrl : MonoBehaviour
     {
         if (other.gameObject.CompareTag(enemyTag))
         {
-            Destroy(other.gameObject);
+            other.gameObject.SetActive(false);
 
-            GameObject Damage_Eff = Instantiate(Effect, new Vector3(tr.position.x, tr.position.y, -3f), Quaternion.identity);
-            Destroy(Damage_Eff, 0.5f);
+            // GameObject Damage_Eff = Instantiate(Effect, new Vector3(tr.position.x, tr.position.y, -3f), Quaternion.identity);
+            // Destroy(Damage_Eff, 0.5f);
+
+            StartCoroutine(ShowEffect());
 
             source.PlayOneShot(clip, 1.0f);
             GameManager.Instance.TurnOn();
         }
+    }
+
+    IEnumerator ShowEffect()
+    {
+        GameObject Damage_Eff = Objectpooling.poolingManager.GetEffectPool();
+        Damage_Eff.SetActive(true);
+        Damage_Eff.transform.position = new Vector3(tr.position.x, tr.position.y, -3f);
+
+        yield return new WaitForSeconds(0.5f);
+        Damage_Eff.SetActive(false);
     }
 }

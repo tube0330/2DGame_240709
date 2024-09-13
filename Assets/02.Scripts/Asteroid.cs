@@ -20,7 +20,7 @@ public class Asteroid : MonoBehaviour
         tr.Translate(Vector2.left * speed * Time.deltaTime);
 
         if (tr.position.x < -10)
-            Destroy(gameObject);
+            gameObject.SetActive(false);
 
         
     }
@@ -28,6 +28,6 @@ public class Asteroid : MonoBehaviour
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.CompareTag(coinTag))
-            Destroy(gameObject);
+            gameObject.SetActive(false);
     }
 }

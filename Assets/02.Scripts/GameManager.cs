@@ -5,14 +5,14 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
-    public GameObject AsteroidPre;
-    private float TimePrev;
-    private float randomPosY;
-    private float randomScale;
+    //public GameObject AsteroidPre;    #1
+    float TimePrev;
+    float randomPosY;
+    float randomScale;
 
     public Vector3 PosCam;
-    private float HitBeginTime;
-    private bool isHit = false;
+    float HitBeginTime;
+    bool isHit = false;
 
 
     void Start()
@@ -26,7 +26,7 @@ public class GameManager : MonoBehaviour
         if (Time.time - TimePrev > 2f)
         {
             TimePrev = Time.time;
-            SpawnAsteroid();
+            //SpawnAsteroid();  #1
         }
 
         if (isHit)
@@ -46,19 +46,19 @@ public class GameManager : MonoBehaviour
 
     void QuitApp()
     {
-        // ¸ð¹ÙÀÏ¿¡¼­ µÚ·Î°¡±â¸¦ ´©¸£¸é °ÔÀÓÀÌ Á¾·áµÇµµ·Ï ÇÑ´Ù
         if (Input.GetKeyDown(KeyCode.Escape))
             Application.Quit();
     }
 
-    void SpawnAsteroid()
-    {
-        randomPosY = Random.Range(-4f, 4f);
-        randomScale = Random.Range(1f, 3f);
+    // #1. ObjectPoolingìœ¼ë¡œ ë³€ê²½
+    // void SpawnAsteroid()
+    // {
+    //     randomPosY = Random.Range(-4f, 4f);
+    //     randomScale = Random.Range(1f, 3f);
 
-        AsteroidPre.transform.localScale = Vector3.one * randomScale;
-        Instantiate(AsteroidPre, new Vector3(10f, randomPosY, AsteroidPre.transform.position.z), Quaternion.identity);
-    }
+    //     AsteroidPre.transform.localScale = Vector3.one * randomScale;
+    //     Instantiate(AsteroidPre, new Vector3(10f, randomPosY, AsteroidPre.transform.position.z), Quaternion.identity);
+    // }
 
 
     public void TurnOn()
