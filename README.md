@@ -10,4 +10,4 @@
 
 =============================================================
 # 240913
-1. Asteroid ObjectPooling
+1. Asteroid, Effect ObjectPooling으로 변경
